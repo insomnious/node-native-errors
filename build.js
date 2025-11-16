@@ -8,6 +8,7 @@ async function spawn(command, args, options) {
   const proc = cp.spawn(command, args, {
     ...(options || {}),
     stdio: ['inherit', 'inherit', 'inherit'],
+    shell: true,
   });
 
   return new Promise((resolve, reject) => {
