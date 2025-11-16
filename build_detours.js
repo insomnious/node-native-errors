@@ -46,6 +46,10 @@ function runVCVars(exe, cb) {
 function vcvars(cb) {
   let {vsInstallDir, VS140COMNTOOLS} = process.env;
   let candidates = [
+    path.join(process.env['ProgramFiles(x86)'], 'Microsoft Visual Studio', '2022', 'BuildTools','VC', 'Auxiliary', 'Build', 'vcvars64.bat'),
+    path.join(process.env['ProgramFiles(x86)'], 'Microsoft Visual Studio', '2022', 'Community','VC', 'Auxiliary', 'Build', 'vcvars64.bat'),
+    path.join(process.env['ProgramFiles(x86)'], 'Microsoft Visual Studio', '2022', 'Enterprise','VC', 'Auxiliary', 'Build', 'vcvars64.bat'),
+    path.join(process.env['ProgramFiles(x86)'], 'Microsoft Visual Studio', '2022', 'Professional','VC', 'Auxiliary', 'Build', 'vcvars64.bat'),
     path.join(process.env['ProgramFiles(x86)'], 'Microsoft Visual Studio', '2017', 'BuildTools','VC', 'Auxiliary', 'Build', 'vcvars64.bat'),
     path.join(process.env['ProgramFiles(x86)'], 'Microsoft Visual Studio', '2017', 'Community','VC', 'Auxiliary', 'Build', 'vcvars64.bat'),
     path.join(process.env['ProgramFiles(x86)'], 'Microsoft Visual Studio', '2017', 'Enterprise','VC', 'Auxiliary', 'Build', 'vcvars64.bat'),

@@ -1,6 +1,7 @@
 const path = require('path');
 const util = require('util');
 const cp = require('child_process');
+const fs = require('fs');
 
 async function spawn(command, args, options) {
 
@@ -22,6 +23,22 @@ async function spawn(command, args, options) {
   });
 }
 
+// Find binary in multiple locations for yarn/pnpm compatibility
+function findBin(name) {
+  const exeExt = process.platform === 'win32' ? '.cmd' : '';
+  const localBin = path.join(__dirname, 'node_modules', '.bin', name + exeExt);
+  const hoistedBin = path.join(__dirname, '..', '..', '.bin', name + exeExt);
+
+  if (fs.existsSync(localBin)) {
+    return localBin;
+  } else if (fs.existsSync(hoistedBin)) {
+    return hoistedBin;
+  } else {
+    // Fallback to npx which should resolve correctly
+    return name;
+  }
+}
+
 async function main() {
 	// git clone --recurse-submodules -j8 https://github.com/Microsoft/Detours || echo \"detours already cloned\"
   try {
@@ -34,12 +51,9 @@ async function main() {
     }
   }
 
-  const binPath = path.join(__dirname, 'node_modules', '.bin');
-  const exeExt = process.platform === 'win32' ? '.cmd' : '';
-
   await spawn('node', ['build_detours.js']);
-  await spawn(path.join(binPath, 'autogypi' + exeExt), []);
-  await spawn(path.join(binPath, 'node-gyp' + exeExt), ['configure', 'build']);
+  await spawn(findBin('autogypi'), []);
+  await spawn(findBin('node-gyp'), ['configure', 'build']);
   return 0;
 }
 
