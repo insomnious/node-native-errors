@@ -1,6 +1,6 @@
 {
   "name": "native-errors",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Make the original error code available in addition to the libuv translated one.",
   "main": "index.js",
   "repository": {
@@ -26,6 +26,5 @@
     "node-addon-api": "^4.0.0",
     "node-gyp": "^9.0.0",
     "prebuild-install": "^7.1.0"
-  },
-  "packageManager": "yarn@1.22.19"
+  }
 }
